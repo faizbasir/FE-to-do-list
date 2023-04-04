@@ -7,7 +7,7 @@ module.exports = {
   mode: "development",
   target: "web",
   output: {
-    path: path.resolve(__dirname, "dist "),
+    path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
   },
   plugins: [
