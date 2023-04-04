@@ -4,14 +4,14 @@
   "description": "To Do List",
   "main": "index.js",
   "scripts": {
-    "clean": "npx rimraf dist",
+    "clean": "rm -rf \"dist\"",
     "build": "webpack --config webpack.config.js",
     "start": "webpack server --open",
     "dev": "npm-run-all -s clean build start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Faiz Basir",
   "license": "ISC",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
