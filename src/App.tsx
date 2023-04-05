@@ -1,8 +1,15 @@
 import React from "react";
 import "./index.css";
+import Header from "./components/UI/header/Header";
+import Form from "./components/UI/content/input/Form";
 
 const App = () => {
-  return <p className="bg-secondary">this is rendered</p>;
+  return (
+    <>
+      <Header />
+      <Form />
+    </>
+  );
 };
 
 export default App;
