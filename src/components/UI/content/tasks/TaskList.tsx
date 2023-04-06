@@ -11,14 +11,15 @@ const TaskList = () => {
 
   return (
     <>
-      <div className="w-[70%] mx-auto my-8">
-        <p>Pending Items</p>
+      <div className="p-4 w-[50%] my-12">
+        <p className="mt-2">Pending Items</p>
         {pendingItems.map((task) => (
           <TaskItem
             id={task.id}
             summary={task.summary}
             completed={task.completed}
             key={task.id}
+            dueDate={task.dueDate}
           />
         ))}
         <p>Completed Items</p>
@@ -28,6 +29,7 @@ const TaskList = () => {
             summary={task.summary}
             completed={task.completed}
             key={task.id}
+            dueDate={task.dueDate}
           />
         ))}
       </div>

@@ -8,8 +8,10 @@ const App = () => {
   return (
     <>
       <Header />
-      <Form />
-      <TaskList />
+      <div className="flex flex-row px-4">
+        <Form />
+        <TaskList />
+      </div>
     </>
   );
 };
