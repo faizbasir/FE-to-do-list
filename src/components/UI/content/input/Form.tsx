@@ -4,8 +4,8 @@ import { addTask } from "../../../store/todoSlice";
 import shortid from "shortid";
 
 const Form = () => {
-  const [task, setTask] = useState("");
-  const [date, setDate] = useState("");
+  const [task, setTask] = useState<string>("");
+  const [date, setDate] = useState<string>("");
 
   const dispatch = useAppDispatch();
 
@@ -35,7 +35,7 @@ const Form = () => {
     <>
       <form
         onSubmit={submitHandler}
-        className="mt-12 w-[50%] p-4 flex flex-col"
+        className="mt-12 w-[50%] py-4 px-24 flex flex-col"
       >
         <p className=" mt-2">Task</p>
         <input
@@ -49,6 +49,7 @@ const Form = () => {
           type="date"
           className="bg-secondary px-2 py-1 rounded-lg text-primary w-[50%] mt-2 text-sm"
           onChange={dateChangeHandler}
+          value={date}
         />
         <button
           type="submit"

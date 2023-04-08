@@ -41,14 +41,24 @@ const deleteExistingTask = (state: Task[], action: PayloadAction<string>) => {
   return state.filter((task) => task.id !== action.payload);
 };
 
+const editExisitngTask = (state: Task[], action: PayloadAction<Task>) => {
+  const elementIndex = state.findIndex((task) => task.id === action.payload.id);
+  if (elementIndex) {
+    state[elementIndex].summary = action.payload.summary;
+    state[elementIndex].dueDate = action.payload.dueDate;
+  }
+  return state;
+};
+
 const todoSlice = createSlice({
   name: "todo",
   initialState,
   reducers: {
     addTask: createNewTask,
     deleteTask: deleteExistingTask,
+    editTask: editExisitngTask,
   },
 });
 
-export const { addTask, deleteTask } = todoSlice.actions;
+export const { addTask, deleteTask, editTask } = todoSlice.actions;
 export default todoSlice.reducer;
