@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { PencilIcon, TrashIcon, EyeIcon } from "@heroicons/react/24/outline";
-import { useAppDispatch } from "../../../store/store";
-import { deleteTask } from "../../../store/todoSlice";
 import ViewModal from "../../modal/ViewModal";
 import EditModal from "../../modal/EditModal";
+import DeleteModal from "../../modal/DeleteModal";
 
 interface Props {
   id: string;
@@ -13,12 +12,12 @@ interface Props {
 }
 
 const TaskItem = (props: Props) => {
-  const dispatch = useAppDispatch();
   const [showViewModal, setShowViewModal] = useState<boolean>(false);
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
+  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
   const deleteHandler = () => {
-    dispatch(deleteTask(props.id));
+    setShowDeleteModal(!showDeleteModal);
   };
 
   const editHandler = () => {
@@ -48,6 +47,15 @@ const TaskItem = (props: Props) => {
           dueDate={props.dueDate}
           id={props.id}
           completed={props.completed}
+        />
+      )}
+      {showDeleteModal && (
+        <DeleteModal
+          id={props.id}
+          summary={props.summary}
+          dueDate={props.dueDate}
+          completed={props.completed}
+          onCancel={deleteHandler}
         />
       )}
       <div className="flex flex-row justify-between my-6 border border-1 border-gray rounded-lg p-4">

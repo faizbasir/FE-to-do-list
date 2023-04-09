@@ -39,24 +39,24 @@ const EditModal = (props: Props) => {
   return (
     <>
       <div className="fixed inset-0 backdrop-blur-md">
-        <div className="mt-24 w-[40%] py-4 px-24 mx-auto bg-secondary rounded-lg">
+        <div className="mt-24 w-[30%] py-4 px-24 mx-auto bg-secondary rounded-lg">
           <h1 className="w-fit mx-auto mb-4 text-primary">Update Task</h1>
           <form onSubmit={submitHandler} className="flex flex-col">
-            <p className=" mt-2 w-[50%] mx-auto text-primary">Task</p>
+            <p className=" mt-2 w-[80%] mx-auto text-primary">Task</p>
             <input
               type="text"
-              className="bg-primary px-2 py-1 rounded-lg w-[50%] mt-2 text-sm mx-auto"
+              className="bg-primary px-2 py-1 rounded-lg w-[80%] mt-2 text-sm mx-auto"
               onChange={changeHandler}
               value={task}
             />
-            <p className=" mt-4 w-[50%] mx-auto text-primary">Due Date</p>
+            <p className=" mt-4 w-[80%] mx-auto text-primary">Due Date</p>
             <input
               type="date"
-              className="bg-primary px-2 py-1 rounded-lg w-[50%] mt-2 text-sm mx-auto"
+              className="bg-primary px-2 py-1 rounded-lg w-[80%] mt-2 text-sm mx-auto"
               onChange={dateChangeHandler}
               value={date}
             />
-            <div className="w-[50%] mx-auto mt-4">
+            <div className="w-[80%] mx-auto mt-4">
               <button
                 type="submit"
                 className="bg-primary px-2 py-1 rounded-lg hover:bg-gray w-fit mt-4 text-sm mr-4"
