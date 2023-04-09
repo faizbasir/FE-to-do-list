@@ -3,6 +3,8 @@ import { PencilIcon, TrashIcon, EyeIcon } from "@heroicons/react/24/outline";
 import ViewModal from "../../modal/ViewModal";
 import EditModal from "../../modal/EditModal";
 import DeleteModal from "../../modal/DeleteModal";
+import { useAppDispatch } from "../../../store/store";
+import { changeTaskStatus } from "../../../store/todoSlice";
 
 interface Props {
   id: string;
@@ -12,9 +14,11 @@ interface Props {
 }
 
 const TaskItem = (props: Props) => {
+  const dispatch = useAppDispatch();
   const [showViewModal, setShowViewModal] = useState<boolean>(false);
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [taskStatus, setTaskStatus] = useState<boolean>(props.completed);
 
   const deleteHandler = () => {
     setShowDeleteModal(!showDeleteModal);
@@ -26,6 +30,11 @@ const TaskItem = (props: Props) => {
 
   const viewHandler = () => {
     setShowViewModal(!showViewModal);
+  };
+
+  const checkHandler = () => {
+    setTaskStatus(!taskStatus);
+    dispatch(changeTaskStatus(props.id));
   };
 
   return (
@@ -63,14 +72,18 @@ const TaskItem = (props: Props) => {
         <div className="flex flex-row items-center">
           {props.completed === false && (
             <>
-              <input type="checkbox" className="h-6 mr-4" />
-
               <PencilIcon
                 className="h-6 mr-4 cursor-pointer"
                 onClick={editHandler}
               />
             </>
           )}
+          <input
+            type="checkbox"
+            className="h-6 mr-4"
+            onChange={checkHandler}
+            checked={taskStatus}
+          />
           <EyeIcon className="h-6 mr-4 cursor-pointer" onClick={viewHandler} />
           <TrashIcon
             className="h-6 mr-4 cursor-pointer"

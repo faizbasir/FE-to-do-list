@@ -9,6 +9,12 @@ interface Task {
 
 const initialState = [
   {
+    id: "DFOKSPF",
+    summary: "Clear garbage",
+    completed: false,
+    dueDate: "2023-08-30",
+  },
+  {
     id: "SDFKM",
     summary: "Buy Groceries",
     completed: false,
@@ -43,10 +49,17 @@ const deleteExistingTask = (state: Task[], action: PayloadAction<string>) => {
 
 const editExisitngTask = (state: Task[], action: PayloadAction<Task>) => {
   const elementIndex = state.findIndex((task) => task.id === action.payload.id);
-  if (elementIndex) {
-    state[elementIndex].summary = action.payload.summary;
-    state[elementIndex].dueDate = action.payload.dueDate;
-  }
+  state[elementIndex].summary = action.payload.summary;
+  state[elementIndex].dueDate = action.payload.dueDate;
+  return state;
+};
+
+const changeExisitingTaskStatus = (
+  state: Task[],
+  action: PayloadAction<string>
+) => {
+  const elementIndex = state.findIndex((task) => task.id === action.payload);
+  state[elementIndex].completed = !state[elementIndex].completed;
   return state;
 };
 
@@ -57,8 +70,10 @@ const todoSlice = createSlice({
     addTask: createNewTask,
     deleteTask: deleteExistingTask,
     editTask: editExisitngTask,
+    changeTaskStatus: changeExisitingTaskStatus,
   },
 });
 
-export const { addTask, deleteTask, editTask } = todoSlice.actions;
+export const { addTask, deleteTask, editTask, changeTaskStatus } =
+  todoSlice.actions;
 export default todoSlice.reducer;
