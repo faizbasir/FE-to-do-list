@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf ./dist",
     "build": "webpack --config webpack.config.js",
-    "start": "webpack server --open",
+    "start": "webpack-dev-server --port 3000",
     "dev": "npm-run-all -s clean build start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
