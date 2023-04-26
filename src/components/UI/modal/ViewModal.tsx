@@ -2,7 +2,7 @@ import React from "react";
 
 interface Props {
   header: string;
-  id: string;
+  id: number;
   summary: string;
   completed: boolean;
   dueDate: string;

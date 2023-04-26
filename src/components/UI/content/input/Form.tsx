@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useAppDispatch } from "../../../store/store";
 import { addTask } from "../../../store/todoSlice";
-import shortid from "shortid";
 
 const Form = () => {
   const [task, setTask] = useState<string>("");
@@ -13,7 +12,7 @@ const Form = () => {
     e.preventDefault();
     dispatch(
       addTask({
-        id: shortid.generate(),
+        id: 7,
         completed: false,
         dueDate: date,
         summary: task,

@@ -3,7 +3,7 @@ import { useAppDispatch } from "../../store/store";
 import { deleteTask } from "../../store/todoSlice";
 
 interface Props {
-  id: string;
+  id: number;
   summary: string;
   dueDate: string;
   completed: boolean;

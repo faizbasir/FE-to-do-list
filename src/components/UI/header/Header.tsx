@@ -1,11 +1,13 @@
 import React from "react";
+import Navigation from "./Navigation";
 
 const Header = () => {
   return (
     <>
-      <h1 className="bg-secondary text-primary text-xl py-4 px-8">
-        To Do List Sandbox
-      </h1>
+      <div className="flex justify-between bg-secondary px-8 py-4">
+        <h1 className="text-primary text-xl">To Do List Sandbox</h1>
+        <Navigation />
+      </div>
     </>
   );
 };

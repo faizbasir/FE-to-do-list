@@ -2,32 +2,32 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface Task {
   summary: string;
-  id: string;
+  id: number;
   dueDate: string;
   completed: boolean;
 }
 
 const initialState = [
   {
-    id: "DFOKSPF",
+    id: 1,
     summary: "Clear garbage",
     completed: false,
     dueDate: "2023-08-30",
   },
   {
-    id: "SDFKM",
+    id: 2,
     summary: "Buy Groceries",
     completed: false,
     dueDate: "2023-12-08",
   },
   {
-    id: "DSKLDF",
+    id: 3,
     summary: "Pick up dry cleaning",
     completed: false,
     dueDate: "2023-12-08",
   },
   {
-    id: "HKSJHF",
+    id: 4,
     summary: "Pay bills",
     completed: true,
     dueDate: "2023-12-08",
@@ -43,7 +43,7 @@ const createNewTask = (state: Task[], action: PayloadAction<Task>) => {
   });
 };
 
-const deleteExistingTask = (state: Task[], action: PayloadAction<string>) => {
+const deleteExistingTask = (state: Task[], action: PayloadAction<number>) => {
   return state.filter((task) => task.id !== action.payload);
 };
 
@@ -56,7 +56,7 @@ const editExisitngTask = (state: Task[], action: PayloadAction<Task>) => {
 
 const changeExisitingTaskStatus = (
   state: Task[],
-  action: PayloadAction<string>
+  action: PayloadAction<number>
 ) => {
   const elementIndex = state.findIndex((task) => task.id === action.payload);
   state[elementIndex].completed = !state[elementIndex].completed;

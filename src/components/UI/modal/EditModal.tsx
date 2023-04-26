@@ -6,7 +6,7 @@ interface Props {
   onCancel: () => void;
   summary: string;
   dueDate: string;
-  id: string;
+  id: number;
   completed: boolean;
 }
 

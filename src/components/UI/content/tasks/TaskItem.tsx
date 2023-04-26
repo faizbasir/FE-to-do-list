@@ -7,7 +7,7 @@ import { useAppDispatch } from "../../../store/store";
 import { changeTaskStatus } from "../../../store/todoSlice";
 
 interface Props {
-  id: string;
+  id: number;
   summary: string;
   completed: boolean;
   dueDate: string;
@@ -67,30 +67,25 @@ const TaskItem = (props: Props) => {
           onCancel={deleteHandler}
         />
       )}
-      <div className="flex flex-row justify-between my-6 border border-1 border-gray rounded-lg p-4">
-        <p className="text-sm">{props.summary}</p>
-        <div className="flex flex-row items-center">
-          {props.completed === false && (
-            <>
-              <PencilIcon
-                className="h-6 mr-4 cursor-pointer"
-                onClick={editHandler}
-              />
-            </>
-          )}
+      <tr className={`${props.completed ? "bg-green" : "even:bg-gray"}`}>
+        <td className="px-4 text-sm py-1">{props.id}</td>
+        <td className="px-4 text-sm py-1">{props.summary}</td>
+        <td className="px-4 text-sm py-1">{props.dueDate}</td>
+        <td className="px-4 text-sm py-1">{`${
+          props.completed ? "Completed" : "Pending"
+        }`}</td>
+        <td className="flex justify-evenly">
           <input
             type="checkbox"
             className="h-6 mr-4"
             onChange={checkHandler}
-            checked={taskStatus}
+            checked={props.completed}
           />
-          <EyeIcon className="h-6 mr-4 cursor-pointer" onClick={viewHandler} />
-          <TrashIcon
-            className="h-6 mr-4 cursor-pointer"
-            onClick={deleteHandler}
-          />
-        </div>
-      </div>
+          <PencilIcon className="h-5 mr-4" />
+          <TrashIcon className="h-5 mr-4" onClick={deleteHandler} />
+          <EyeIcon onClick={viewHandler} className="h-5 mr-4" />
+        </td>
+      </tr>
     </>
   );
 };
