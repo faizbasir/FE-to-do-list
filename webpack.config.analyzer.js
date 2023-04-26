@@ -1,5 +1,7 @@
 const path = require("path");
 const htmlWebpackPlugin = require("html-webpack-plugin");
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -13,6 +15,7 @@ module.exports = {
     new htmlWebpackPlugin({
       template: "./public/index.html",
     }),
+    new BundleAnalyzerPlugin(),
   ],
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
@@ -20,12 +23,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(tsx)$/,
+        test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         use: "ts-loader",
       },
       {
-        test: /\.(jsx)$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
