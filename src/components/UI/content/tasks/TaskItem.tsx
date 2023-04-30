@@ -67,7 +67,7 @@ const TaskItem = (props: Props) => {
           onCancel={deleteHandler}
         />
       )}
-      <tr className={`${props.completed ? "bg-green" : "even:bg-gray"}`}>
+      <tr className={`${props.completed ? "bg-green" : "odd:bg-gray"}`}>
         <td className="px-4 text-sm py-1">{props.id}</td>
         <td className="px-4 text-sm py-1">{props.summary}</td>
         <td className="px-4 text-sm py-1">{props.dueDate}</td>
