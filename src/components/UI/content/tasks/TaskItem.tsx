@@ -5,6 +5,8 @@ import EditModal from "../../modal/EditModal";
 import DeleteModal from "../../modal/DeleteModal";
 import { useAppDispatch } from "../../../store/store";
 import { changeTaskStatus } from "../../../store/todoSlice";
+import moment from "moment";
+import { Portal } from "../../portal/Portal";
 
 interface Props {
   id: number;
@@ -40,14 +42,16 @@ const TaskItem = (props: Props) => {
   return (
     <>
       {showViewModal && (
-        <ViewModal
-          header={"Review Task"}
-          id={props.id}
-          summary={props.summary}
-          completed={props.completed}
-          dueDate={props.dueDate}
-          onCancel={viewHandler}
-        />
+        <Portal target={"modal"}>
+          <ViewModal
+            header={"Review Task"}
+            id={props.id}
+            summary={props.summary}
+            completed={props.completed}
+            dueDate={props.dueDate}
+            onCancel={viewHandler}
+          />
+        </Portal>
       )}
       {showEditModal && (
         <EditModal
@@ -59,15 +63,26 @@ const TaskItem = (props: Props) => {
         />
       )}
       {showDeleteModal && (
-        <DeleteModal
-          id={props.id}
-          summary={props.summary}
-          dueDate={props.dueDate}
-          completed={props.completed}
-          onCancel={deleteHandler}
-        />
+        <Portal target={"modal"}>
+          <DeleteModal
+            id={props.id}
+            summary={props.summary}
+            dueDate={props.dueDate}
+            completed={props.completed}
+            onCancel={deleteHandler}
+          />
+        </Portal>
       )}
-      <tr className={`${props.completed ? "bg-green" : "odd:bg-gray"}`}>
+
+      <tr
+        className={`${
+          props.completed
+            ? "bg-green"
+            : moment().format("YYYY-MM-DD") > props.dueDate
+            ? "bg-lightred"
+            : "odd:bg-gray"
+        }`}
+      >
         <td className="px-4 text-sm py-1">{props.id}</td>
         <td className="px-4 text-sm py-1">{props.summary}</td>
         <td className="px-4 text-sm py-1">{props.dueDate}</td>
