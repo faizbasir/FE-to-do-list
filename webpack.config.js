@@ -9,11 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
   },
-  plugins: [
-    new htmlWebpackPlugin({
-      template: "./public/index.html",
-    }),
-  ],
+
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
@@ -54,4 +50,12 @@ module.exports = {
       },
     ],
   },
+  devServer: {
+    historyApiFallback: true,
+  },
+  plugins: [
+    new htmlWebpackPlugin({
+      template: "./public/index.html",
+    }),
+  ],
 };

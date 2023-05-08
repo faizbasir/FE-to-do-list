@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer } from "react";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { addTask } from "../../../store/todoSlice";
 import Input from "./Input";
@@ -6,11 +6,9 @@ import formReducer from "../../../reducer/formReducer";
 
 const Form = () => {
   const [inputState, dispatch] = useReducer(formReducer, {
-    summary: { value: "", isValid: false },
-    date: { value: "", isValid: false },
+    summary: { value: "", isValid: false, isTouched: false },
+    date: { value: "", isValid: false, isTouched: false },
   });
-  const [summaryBlur, setSummaryBlur] = useState(false);
-  const [dateBlur, setDateBlur] = useState(false);
 
   const appDispatch = useAppDispatch();
   const taskList = useAppSelector((state) => state.todo);
@@ -29,8 +27,6 @@ const Form = () => {
       type: "CLEAR_FIELDS",
       payload: { id: "", value: "" },
     });
-    setDateBlur(false);
-    setSummaryBlur(false);
   };
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,11 +37,10 @@ const Form = () => {
   };
 
   const blurHandler = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (e.currentTarget.id === "summary") {
-      setSummaryBlur(true);
-    } else {
-      setDateBlur(true);
-    }
+    dispatch({
+      type: "ON_TOUCH",
+      payload: { id: e.currentTarget.id, value: "" },
+    });
   };
 
   return (
@@ -60,11 +55,11 @@ const Form = () => {
             name={"summary"}
             id={"summary"}
             valid={inputState.summary.isValid}
-            blur={summaryBlur}
+            blur={inputState.summary.isTouched}
             onBlur={blurHandler}
           />
         </td>
-        <td>
+        <td className="py-2">
           <Input
             type={"date"}
             value={inputState.date.value}
@@ -72,7 +67,7 @@ const Form = () => {
             name={"date"}
             id={"date"}
             valid={inputState.date.isValid}
-            blur={dateBlur}
+            blur={inputState.date.isTouched}
             onBlur={blurHandler}
           />
         </td>

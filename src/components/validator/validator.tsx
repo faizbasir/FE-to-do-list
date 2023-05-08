@@ -1,13 +1,14 @@
-export const validatorInput = (id: string, input: string) => {
+export const validatorInput = (payload: { id: string; value: string }) => {
+  const { id, value } = payload;
   switch (id) {
     case "summary":
-      if (input.length > 4) {
+      if (value.length > 4) {
         return true;
       }
       return false;
     case "date":
       let regEx = /^\d{4}-\d{2}-\d{2}$/;
-      return input.match(regEx);
+      return value.match(regEx);
     default:
       return false;
   }
