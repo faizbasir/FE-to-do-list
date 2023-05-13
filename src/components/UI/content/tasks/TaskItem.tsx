@@ -33,7 +33,7 @@ const TaskItem = (props: Props) => {
   };
 
   const editHandler = () => {
-    setOnEdit(true);
+    setOnEdit(!onEdit);
   };
 
   const viewHandler = () => {
@@ -66,7 +66,6 @@ const TaskItem = (props: Props) => {
         summary: inputState.summary.value,
         id: props.id,
         dueDate: inputState.date.value,
-        completed: props.completed,
       })
     );
     setOnEdit(false);
@@ -126,7 +125,7 @@ const TaskItem = (props: Props) => {
             >
               Edit Task
             </button>
-            <button className=" ml-2 rounded-md py-1 px-2 text-sm bg-lightgray">
+            <button className="rounded-md py-1 px-2 text-sm bg-lightgray ml-2">
               Cancel
             </button>
           </td>

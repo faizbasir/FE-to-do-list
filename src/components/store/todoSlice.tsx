@@ -47,7 +47,10 @@ const deleteExistingTask = (state: Task[], action: PayloadAction<number>) => {
   return state.filter((task) => task.id !== action.payload);
 };
 
-const editExisitngTask = (state: Task[], action: PayloadAction<Task>) => {
+const editExisitngTask = (
+  state: Task[],
+  action: PayloadAction<{ summary: string; dueDate: string; id: number }>
+) => {
   const elementIndex = state.findIndex((task) => task.id === action.payload.id);
   state[elementIndex].summary = action.payload.summary;
   state[elementIndex].dueDate = action.payload.dueDate;

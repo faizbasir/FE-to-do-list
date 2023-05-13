@@ -1,13 +1,31 @@
 import React, { useReducer } from "react";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
-import { addTask } from "../../../store/todoSlice";
+import { addTask, editTask } from "../../../store/todoSlice";
 import Input from "./Input";
 import formReducer from "../../../reducer/formReducer";
+import moment from "moment";
 
-const Form = () => {
+interface formProps {
+  id?: number;
+  summary?: string;
+  date?: string;
+  completed?: boolean;
+  onEdit?: boolean;
+  finishEdit?: () => void;
+}
+
+const Form = (props: formProps) => {
   const [inputState, dispatch] = useReducer(formReducer, {
-    summary: { value: "", isValid: false, isTouched: false },
-    date: { value: "", isValid: false, isTouched: false },
+    summary: {
+      value: props.summary || "",
+      isValid: props.onEdit || false,
+      isTouched: false,
+    },
+    date: {
+      value: props.date || "",
+      isValid: props.onEdit || false,
+      isTouched: false,
+    },
   });
 
   const appDispatch = useAppDispatch();
@@ -18,18 +36,29 @@ const Form = () => {
 
   const submitHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    appDispatch(
-      addTask({
-        id: Math.max(...maxId) + 1,
-        completed: false,
-        dueDate: inputState.date.value,
-        summary: inputState.summary.value,
-      })
-    );
-    dispatch({
-      type: "CLEAR_FIELDS",
-      payload: { id: "", value: "" },
-    });
+    if (props.onEdit && props.id) {
+      appDispatch(
+        editTask({
+          summary: inputState.summary.value,
+          dueDate: inputState.date.value,
+          id: props.id,
+        })
+      );
+      props.finishEdit;
+    } else {
+      appDispatch(
+        addTask({
+          id: Math.max(...maxId) + 1,
+          completed: false,
+          dueDate: inputState.date.value,
+          summary: inputState.summary.value,
+        })
+      );
+      dispatch({
+        type: "CLEAR_FIELDS",
+        payload: { id: "", value: "" },
+      });
+    }
   };
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,8 +77,24 @@ const Form = () => {
 
   return (
     <>
-      <tr className="bg-gray">
-        <td></td>
+      <tr
+        className={
+          props.onEdit && props.date
+            ? `${
+                props.completed
+                  ? "bg-green"
+                  : moment().format("YYYY-MM-DD") > props.date
+                  ? "bg-lightred"
+                  : "odd:bg-gray"
+              }`
+            : "bg-gray"
+        }
+      >
+        {props.onEdit ? (
+          <td className="px-4 text-sm py-1">{props.id}</td>
+        ) : (
+          <td></td>
+        )}
         <td className="py-2">
           <Input
             type={"text"}
@@ -74,8 +119,14 @@ const Form = () => {
             onBlur={blurHandler}
           />
         </td>
-        <td></td>
-        <td>
+        {props.onEdit ? (
+          <td className="text-sm px-4 py-1">{`${
+            props.completed ? "Completed" : "Pending"
+          }`}</td>
+        ) : (
+          <td></td>
+        )}
+        <td className="flex justify-evenly py-2">
           <button
             onClick={submitHandler}
             className={`${
@@ -87,6 +138,14 @@ const Form = () => {
           >
             Submit
           </button>
+          {props.onEdit && (
+            <button
+              className="bg-lightgray rounded-md py-1 px-2 text-sm"
+              onClick={props.finishEdit}
+            >
+              Cancel
+            </button>
+          )}
         </td>
       </tr>
     </>
