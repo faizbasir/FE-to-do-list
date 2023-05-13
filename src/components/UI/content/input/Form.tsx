@@ -13,11 +13,14 @@ const Form = () => {
   const appDispatch = useAppDispatch();
   const taskList = useAppSelector((state) => state.todo);
 
+  let maxId: number[] = [];
+  taskList.map((task) => maxId.push(task.id));
+
   const submitHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
     appDispatch(
       addTask({
-        id: taskList.length + 1,
+        id: Math.max(...maxId) + 1,
         completed: false,
         dueDate: inputState.date.value,
         summary: inputState.summary.value,
