@@ -11,7 +11,7 @@ interface formProps {
   date?: string;
   completed?: boolean;
   onEdit?: boolean;
-  finishEdit?: () => void;
+  onCancel?: () => void;
 }
 
 const Form = (props: formProps) => {
@@ -36,7 +36,7 @@ const Form = (props: formProps) => {
 
   const submitHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if (props.onEdit && props.id) {
+    if (props.onEdit && props.id && props.onCancel) {
       appDispatch(
         editTask({
           summary: inputState.summary.value,
@@ -44,7 +44,7 @@ const Form = (props: formProps) => {
           id: props.id,
         })
       );
-      props.finishEdit;
+      props.onCancel();
     } else {
       appDispatch(
         addTask({
@@ -141,7 +141,7 @@ const Form = (props: formProps) => {
           {props.onEdit && (
             <button
               className="bg-lightgray rounded-md py-1 px-2 text-sm"
-              onClick={props.finishEdit}
+              onClick={props.onCancel}
             >
               Cancel
             </button>
