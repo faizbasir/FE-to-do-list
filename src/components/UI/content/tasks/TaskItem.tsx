@@ -126,6 +126,9 @@ const TaskItem = (props: Props) => {
             >
               Edit Task
             </button>
+            <button className=" ml-2 rounded-md py-1 px-2 text-sm bg-lightgray">
+              Cancel
+            </button>
           </td>
         </tr>
       </>
