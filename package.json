@@ -4,7 +4,7 @@
   "description": "To Do List",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf ./dist",
+    "clean": "rimraf ./dist && rimraf ./coverage",
     "build": "webpack --config webpack.config.js",
     "start": "webpack-dev-server --port 3000",
     "dev": "npm-run-all -s clean build start",
