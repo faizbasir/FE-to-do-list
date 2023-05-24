@@ -5,6 +5,13 @@ module.exports = {
   testMatch: ["**/__test__/*.ts?(x)"],
   moduleDirectories: ["node_modules", "src"],
   moduleNameMapper: {
-    "\\.(css|less)$": "<rootDir>/src/__mocks__/styleMock.js",
+    "\\.(css|less)$": "identity-obj-proxy",
+  },
+  collectCoverage: true,
+  collectCoverageFrom: ["./src/**"],
+  coverageThreshold: {
+    global: {
+      lines: 85,
+    },
   },
 };

@@ -96,6 +96,9 @@ const Form = (props: formProps) => {
           <td></td>
         )}
         <td className="py-2">
+          <label htmlFor="summary" className="hidden">
+            Summary
+          </label>
           <Input
             type={"text"}
             value={inputState.summary.value}
@@ -108,12 +111,16 @@ const Form = (props: formProps) => {
           />
         </td>
         <td className="py-2">
+          <label htmlFor="date" className="hidden">
+            Date
+          </label>
           <Input
             type={"date"}
             value={inputState.date.value}
             onChange={changeHandler}
             name={"date"}
             id={"date"}
+            data-testid="date-input"
             valid={inputState.date.isValid}
             blur={inputState.date.isTouched}
             onBlur={blurHandler}

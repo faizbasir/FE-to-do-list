@@ -9,7 +9,8 @@
     "start": "webpack-dev-server --port 3000",
     "dev": "npm-run-all -s clean build start",
     "analyze": "webpack --config webpack.config.analyzer.js",
-    "test": "jest"
+    "test": "jest --coverage",
+    "coverage": "npm run test -- --coverage"
   },
   "keywords": [],
   "author": "Faiz Basir",
@@ -37,6 +38,7 @@
     "babel-loader": "^9.1.2",
     "css-loader": "^6.7.3",
     "html-webpack-plugin": "^5.5.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
     "moment": "^2.29.4",
