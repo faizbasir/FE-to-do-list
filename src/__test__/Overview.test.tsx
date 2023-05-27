@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import Header from "../components/UI/header/Header";
 import Navigation from "../components/UI/header/Navigation";
 import { BrowserRouter } from "react-router-dom";
@@ -72,7 +72,32 @@ describe("Create new entry", () => {
     expect(dateInput).toHaveValue("");
     expect(summaryInput).toHaveValue("");
     expect(screen.getByRole("button")).toBeDisabled();
+    expect(
+      screen.getAllByRole("row")[screen.getAllByRole("row").length - 1]
+    ).toHaveTextContent("Take out garbage");
+    expect(
+      screen.getAllByRole("row")[screen.getAllByRole("row").length - 1]
+    ).toHaveTextContent("2023-05-12");
+    expect(
+      screen.getAllByRole("row")[screen.getAllByRole("row").length - 1]
+    ).toHaveTextContent("Pending");
   });
 });
 
-//continue with validate new entry
+describe("action buttons functionality", () => {
+  test("complete task", () => {
+    setup();
+    fireEvent.click(
+      within(screen.getAllByRole("row")[2]).getByLabelText("checkbox")
+    );
+    expect(screen.getAllByRole("row")[2]).toHaveTextContent("Completed");
+  });
+
+  test("edit task", () => {
+    setup();
+    fireEvent.click(
+      within(screen.getAllByRole("row")[2]).getByLabelText("pencil-icon")
+    );
+    expect(within(screen.getAllByRole("row")[2]).getByText("Cancel"));
+  });
+});

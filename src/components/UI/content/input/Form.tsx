@@ -100,6 +100,7 @@ const Form = (props: formProps) => {
             Summary
           </label>
           <Input
+            aria-label="summary"
             type={"text"}
             value={inputState.summary.value}
             onChange={changeHandler}
@@ -115,6 +116,7 @@ const Form = (props: formProps) => {
             Date
           </label>
           <Input
+            aria-label="date"
             type={"date"}
             value={inputState.date.value}
             onChange={changeHandler}

@@ -95,14 +95,23 @@ const TaskItem = (props: Props) => {
         }`}</td>
         <td className="flex justify-evenly">
           <input
+            aria-label="checkbox"
             type="checkbox"
             className="h-6 mr-4"
             onChange={checkHandler}
             checked={props.completed}
           />
-          <PencilIcon className="h-5 mr-4" onClick={editHandler} />
+          <PencilIcon
+            aria-label="pencil-icon"
+            className="h-5 mr-4"
+            onClick={editHandler}
+          />
           <TrashIcon className="h-5 mr-4" onClick={deleteHandler} />
-          <EyeIcon onClick={viewHandler} className="h-5 mr-4" />
+          <EyeIcon
+            onClick={viewHandler}
+            aria-label="eye-icon"
+            className="h-5 mr-4"
+          />
         </td>
       </tr>
     </>
