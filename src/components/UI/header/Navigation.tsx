@@ -9,7 +9,9 @@ const Navigation = () => {
           <NavLink to={"/overview"}>Overview</NavLink>
         </p>
         <p className="px-2 text-primary">|</p>
-        <p className="px-4 text-primary">Calendar</p>
+        <p className="px-4 text-primary">
+          <NavLink to={"/calendar"}>Calendar</NavLink>
+        </p>
       </div>
     </>
   );
