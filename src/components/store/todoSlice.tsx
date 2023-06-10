@@ -12,7 +12,7 @@ const initialState = [
     id: 1,
     summary: "Clear garbage",
     completed: false,
-    dueDate: "2023-08-30",
+    dueDate: "2023-04-30",
   },
   {
     id: 2,

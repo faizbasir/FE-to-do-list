@@ -1,11 +1,10 @@
 import moment, { Moment } from "moment";
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import {
   ChevronRightIcon,
   ChevronLeftIcon,
   ChevronDownIcon,
 } from "@heroicons/react/24/outline";
-import { Menu, Transition } from "@headlessui/react";
 
 const CalendarHeader = () => {
   const [dateObject, setDateObject] = useState<Moment>(moment());
@@ -29,34 +28,14 @@ const CalendarHeader = () => {
   });
 
   let contentMenu = (
-    <Menu as="div" className="relative inline-block text-left">
-      <div className="">
-        <Menu.Button
-          onClick={selectMonthHandler}
-          className="inline-flex justify-center px-4 py-2 text-sm text-primary"
-        >
-          {dateObject.format("MMMM")}
-          <ChevronDownIcon className="ml-2 -mr-1 h-5 w-5" />
-        </Menu.Button>
-      </div>
-      {showDropDown && (
-        <Transition
-          as={Fragment}
-          enter="transition ease-out duration-200"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
-          leave="transition ease-in duration-200"
-          leaveFrom="transform opacity-100 scale-100"
-          leaveTo="transform opacity-0 scale-95"
-        >
-          <Menu.Items>
-            <Menu.Item as="div" className="absolute z-40 mt-2">
-              {displayedMonths}
-            </Menu.Item>
-          </Menu.Items>
-        </Transition>
-      )}
-    </Menu>
+    <>
+      {dateObject.format("MMMM")}
+      {displayedMonths}
+      <ChevronDownIcon
+        className="ml-2 -mr-1 h-5 w-5"
+        onClick={selectMonthHandler}
+      />
+    </>
   );
 
   return (

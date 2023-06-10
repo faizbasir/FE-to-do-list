@@ -1,0 +1,25 @@
+.card {
+  width: 80%;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+.card-body {
+  max-width: 23.75%;
+}
+.id-column {
+  max-width: 5%;
+}
+.checkbox {
+  margin: 1rem;
+}
+.icon {
+  color: whitesmoke;
+  width: 1.5rem;
+  margin: 1rem;
+}
+.success {
+  background-color: rgba(96, 201, 96, 0.5) !important;
+}
+.danger {
+  background-color: rgba(255, 0, 0, 0.5) !important;
+}

@@ -1,5 +1,8 @@
 const path = require("path");
 const htmlWebpackPlugin = require("html-webpack-plugin");
+const miniCssExtractPlugin = require("mini-css-extract-plugin");
+const linkTypePlugin =
+  require("html-webpack-link-type-plugin").htmlWebpackPlugin;
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -35,9 +38,17 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
+        test: /\.(s[ac]|c)ss$/,
         exclude: /node_modules/,
-        use: ["style-loader", "css-loader", "postcss-loader"],
+        use: [
+          {
+            loader: miniCssExtractPlugin.loader,
+            options: { publicPath: "" },
+          },
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
+        ],
       },
       {
         test: /\.(png|svg|ttf)$/i,
@@ -48,12 +59,28 @@ module.exports = {
         enforce: "pre",
         use: ["source-map-loader"],
       },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        include: path.resolve(
+          __dirname,
+          "./node_modules/bootstrap-icons/font/fonts"
+        ),
+        use: {
+          loader: "file-loader",
+          options: {
+            name: "[name].[ext]",
+            outputPath: "webfonts",
+            publicPath: "../webfonts",
+          },
+        },
+      },
     ],
   },
   devServer: {
     historyApiFallback: true,
   },
   plugins: [
+    new miniCssExtractPlugin(),
     new htmlWebpackPlugin({
       template: "./public/index.html",
     }),

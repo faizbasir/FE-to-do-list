@@ -1,38 +1,56 @@
 import React from "react";
 import { useAppSelector } from "../../../store/store";
 import TaskItem from "./TaskItem";
-import Form from "../input/Form";
+import "./styles/TaskList.scss";
 
 const TaskList = () => {
   const taskList = useAppSelector((state) => state.todo);
 
+  const content = taskList.map((item) => (
+    <TaskItem
+      key={item.id}
+      id={item.id}
+      summary={item.summary}
+      dueDate={item.dueDate}
+      completed={item.completed}
+    />
+  ));
+
   return (
     <>
-      <div className="p-4 w-[90%] my-12 mx-auto">
-        <table className="table-auto w-full [&>tbody*:nth-child(even)]:bg-gray">
-          <thead>
-            <tr className="bg-secondary text-primary">
-              <th className="text-left px-4 py-2">ID</th>
-              <th className="text-left px-4 py-2">Summary</th>
-              <th className="text-left px-4 py-2">Due Date</th>
-              <th className="text-left px-4 py-2">Status</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <Form />
-            {taskList.map((task) => (
-              <TaskItem
-                key={task.id}
-                id={task.id}
-                summary={task.summary}
-                completed={task.completed}
-                dueDate={task.dueDate}
-              />
-            ))}
-          </tbody>
-        </table>
+      <div className="form">
+        <form action="" className="row row-cols-lg-auto g-3 align-items-center">
+          <div className="col-12">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Summary"
+              aria-label="Summary"
+            />
+          </div>
+          <div className="col-12">
+            <input
+              type="date"
+              className="form-control"
+              placeholder="Date"
+              aria-label="Date"
+            />
+          </div>
+          <div className="col-12">
+            <button className="btn btn-primary" type="submit">
+              +
+            </button>
+          </div>
+        </form>
       </div>
+      <div className="card d-flex flex-row">
+        <div className="card-body id-column">ID</div>
+        <div className="card-body">Summary</div>
+        <div className="card-body">Due Date</div>
+        <div className="card-body">Status</div>
+        <div className="card-body"></div>
+      </div>
+      {content}
     </>
   );
 };

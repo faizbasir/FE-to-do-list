@@ -1,0 +1,30 @@
+body {
+  margin: 0px;
+}
+
+$body-bg: #212529;
+$font-family-code: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  monospace;
+$font-family-base: Helvetica;
+$paragraph-margin-bottom: 0;
+
+$table-color: whitesmoke;
+$table-bg-scale: -30%;
+$table-cell-padding-x-sm: 1rem;
+$table-bg: #212529;
+
+$navbar-padding-y: 1rem;
+$navbar-padding-x: 2rem;
+
+$nav-pills-link-active-color: blue;
+$nav-pills-link-active-bg: whitesmoke;
+
+$input-color: whitesmoke;
+$input-placeholder-color: gray;
+
+$card-color: whitesmoke;
+$card-border-color: whitesmoke;
+
+$modal-content-color: whitesmoke;
+
+@import "../node_modules/bootstrap/scss/bootstrap";

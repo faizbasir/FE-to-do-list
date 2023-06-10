@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { PencilIcon, TrashIcon, EyeIcon } from "@heroicons/react/24/outline";
-import ViewModal from "../../modal/ViewModal";
-import DeleteModal from "../../modal/DeleteModal";
+import ViewModal from "../../modal/Modal";
 import { useAppDispatch } from "../../../store/store";
 import { changeTaskStatus } from "../../../store/todoSlice";
-import moment from "moment";
-import { Portal } from "../../portal/Portal";
 import Form from "../input/Form";
+import "./styles/TaskItem.scss";
+import { Eye, Pencil, Trash } from "react-bootstrap-icons";
+import moment from "moment";
 
 interface Props {
   id: number;
@@ -17,13 +16,14 @@ interface Props {
 
 const TaskItem = (props: Props) => {
   const appDispatch = useAppDispatch();
-  const [showViewModal, setShowViewModal] = useState<boolean>(false);
-  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [taskStatus, setTaskStatus] = useState<boolean>(props.completed);
+  const [showViewModal, setShowViewModal] = useState<boolean>(false);
+  const [toDelete, setToDelete] = useState<boolean>(false);
   const [onEdit, setOnEdit] = useState<boolean>(false);
 
   const deleteHandler = () => {
-    setShowDeleteModal(!showDeleteModal);
+    setToDelete(true);
+    setShowViewModal(!showViewModal);
   };
 
   const editHandler = () => {
@@ -32,6 +32,9 @@ const TaskItem = (props: Props) => {
 
   const viewHandler = () => {
     setShowViewModal(!showViewModal);
+    if (toDelete === true) {
+      setToDelete(false);
+    }
   };
 
   const checkHandler = () => {
@@ -54,66 +57,46 @@ const TaskItem = (props: Props) => {
 
   return (
     <>
-      {showViewModal && (
-        <Portal target={"modal"}>
-          <ViewModal
-            header={"Review Task"}
-            id={props.id}
-            summary={props.summary}
-            completed={props.completed}
-            dueDate={props.dueDate}
-            onCancel={viewHandler}
-          />
-        </Portal>
-      )}
-      {showDeleteModal && (
-        <Portal target={"modal"}>
-          <DeleteModal
-            id={props.id}
-            summary={props.summary}
-            dueDate={props.dueDate}
-            completed={props.completed}
-            onCancel={deleteHandler}
-          />
-        </Portal>
-      )}
-
-      <tr
-        className={`${
+      <ViewModal
+        header={toDelete ? "Delete Task?" : "Review Task"}
+        id={props.id}
+        summary={props.summary}
+        completed={props.completed}
+        dueDate={props.dueDate}
+        show={showViewModal}
+        toDelete={toDelete}
+        onDelete={deleteHandler}
+        onCancel={viewHandler}
+      />
+      <div
+        className={`card d-flex flex-row ${
           props.completed
-            ? "bg-green"
+            ? "success"
             : moment().format("YYYY-MM-DD") > props.dueDate
-            ? "bg-lightred"
-            : "odd:bg-gray"
+            ? "danger"
+            : ""
         }`}
       >
-        <td className="px-4 text-sm py-1">{props.id}</td>
-        <td className="px-4 text-sm py-1">{props.summary}</td>
-        <td className="px-4 text-sm py-1">{props.dueDate}</td>
-        <td className="px-4 text-sm py-1">{`${
-          props.completed ? "Completed" : "Pending"
-        }`}</td>
-        <td className="flex justify-evenly">
-          <input
-            aria-label="checkbox"
-            type="checkbox"
-            className="h-6 mr-4"
-            onChange={checkHandler}
-            checked={props.completed}
-          />
-          <PencilIcon
-            aria-label="pencil-icon"
-            className="h-5 mr-4"
-            onClick={editHandler}
-          />
-          <TrashIcon className="h-5 mr-4" onClick={deleteHandler} />
-          <EyeIcon
-            onClick={viewHandler}
-            aria-label="eye-icon"
-            className="h-5 mr-4"
-          />
-        </td>
-      </tr>
+        <div className="card-body id-column">{props.id}</div>
+        <div className="card-body">{props.summary}</div>
+        <div className="card-body">{props.dueDate}</div>
+        <div className="card-body">{`${
+          props.completed
+            ? "Completed"
+            : moment().format("YYYY-MM-DD") > props.dueDate
+            ? "Overdue"
+            : "Pending"
+        }`}</div>
+        <input
+          type="checkbox"
+          className="checkbox"
+          onChange={checkHandler}
+          checked={props.completed}
+        />
+        <Eye className="icon" onClick={viewHandler} type="button" />
+        <Pencil className="icon" />
+        <Trash className="icon" onClick={deleteHandler} type="button" />
+      </div>
     </>
   );
 };

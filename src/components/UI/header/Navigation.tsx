@@ -1,18 +1,22 @@
 import React from "react";
+import "./styles/Navigation.scss";
 import { NavLink } from "react-router-dom";
 
 const Navigation = () => {
   return (
     <>
-      <div className="flex">
-        <p className="px-4 text-primary">
-          <NavLink to={"/overview"}>Overview</NavLink>
-        </p>
-        <p className="px-2 text-primary">|</p>
-        <p className="px-4 text-primary">
-          <NavLink to={"/calendar"}>Calendar</NavLink>
-        </p>
-      </div>
+      <ul className="nav nav-pills">
+        <li className="nav-item">
+          <NavLink to={"/overview"} className="nav-link">
+            Overview
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink to={"/calendar"} className="nav-link">
+            Calendar
+          </NavLink>
+        </li>
+      </ul>
     </>
   );
 };
