@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ViewModal from "../../modal/Modal";
 import { useAppDispatch } from "../../../store/store";
 import { changeTaskStatus } from "../../../store/todoSlice";
-import Form from "../input/Form";
+// import Form from "../input/Form";
 import "./styles/TaskItem.scss";
 import { Eye, Pencil, Trash } from "react-bootstrap-icons";
 import moment from "moment";
@@ -19,16 +19,16 @@ const TaskItem = (props: Props) => {
   const [taskStatus, setTaskStatus] = useState<boolean>(props.completed);
   const [showViewModal, setShowViewModal] = useState<boolean>(false);
   const [toDelete, setToDelete] = useState<boolean>(false);
-  const [onEdit, setOnEdit] = useState<boolean>(false);
+  // const [onEdit, setOnEdit] = useState<boolean>(false);
 
   const deleteHandler = () => {
     setToDelete(true);
     setShowViewModal(!showViewModal);
   };
 
-  const editHandler = () => {
-    setOnEdit(!onEdit);
-  };
+  // const editHandler = () => {
+  //   setOnEdit(!onEdit);
+  // };
 
   const viewHandler = () => {
     setShowViewModal(!showViewModal);
@@ -42,18 +42,18 @@ const TaskItem = (props: Props) => {
     appDispatch(changeTaskStatus(props.id));
   };
 
-  if (onEdit) {
-    return (
-      <Form
-        id={props.id}
-        date={props.dueDate}
-        summary={props.summary}
-        completed={props.completed}
-        onEdit={onEdit}
-        onCancel={editHandler}
-      />
-    );
-  }
+  // if (onEdit) {
+  //   return (
+  //     <Form
+  //       id={props.id}
+  //       date={props.dueDate}
+  //       summary={props.summary}
+  //       completed={props.completed}
+  //       onEdit={onEdit}
+  //       onCancel={editHandler}
+  //     />
+  //   );
+  // }
 
   return (
     <>

@@ -2,6 +2,7 @@ import React from "react";
 import { useAppSelector } from "../../../store/store";
 import TaskItem from "./TaskItem";
 import "./styles/TaskList.scss";
+import EntryForm from "../input/EntryForm";
 
 const TaskList = () => {
   const taskList = useAppSelector((state) => state.todo);
@@ -19,29 +20,7 @@ const TaskList = () => {
   return (
     <>
       <div className="form">
-        <form action="" className="row row-cols-lg-auto g-3 align-items-center">
-          <div className="col-12">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Summary"
-              aria-label="Summary"
-            />
-          </div>
-          <div className="col-12">
-            <input
-              type="date"
-              className="form-control"
-              placeholder="Date"
-              aria-label="Date"
-            />
-          </div>
-          <div className="col-12">
-            <button className="btn btn-primary" type="submit">
-              +
-            </button>
-          </div>
-        </form>
+        <EntryForm />
       </div>
       <div className="card d-flex flex-row">
         <div className="card-body id-column">ID</div>

@@ -11,7 +11,7 @@ thead {
   color: whitesmoke;
 }
 .form {
-  width: fit-content;
+  width: 35%;
   margin: auto;
   margin-bottom: 3rem;
 }
@@ -25,4 +25,7 @@ thead {
 }
 .id-column {
   max-width: 5%;
+}
+.submit-form {
+  width: fit-content;
 }
