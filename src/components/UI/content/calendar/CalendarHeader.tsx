@@ -1,49 +1,37 @@
-import moment, { Moment } from "moment";
-import React, { useState } from "react";
-import {
-  ChevronRightIcon,
-  ChevronLeftIcon,
-  ChevronDownIcon,
-} from "@heroicons/react/24/outline";
+import moment from "moment";
+import React from "react";
+import "./styles/CalendarHeader.scss";
+import { Dropdown } from "react-bootstrap";
 
 const CalendarHeader = () => {
-  const [dateObject, setDateObject] = useState<Moment>(moment());
-  const [showDropDown, setShowDropDown] = useState<boolean>(false);
+  // const [dateObject, setDateObject] = useState<Moment>(moment());
+  // const [showDropDown, setShowDropDown] = useState<boolean>(false);
   const months: string[] = moment.months();
 
-  const selectMonthHandler = () => {
-    setDateObject(moment());
-    setShowDropDown(!showDropDown);
+  const selectMonthHandler = (e: React.MouseEvent<HTMLInputElement>) => {
+    console.log(e.currentTarget.innerHTML);
   };
 
-  const displayedMonths = months.map((month) => {
-    return (
-      <p
-        key={month}
-        className="bg-lightgray p-2 cursor-default hover:bg-primary"
-      >
-        {month}
-      </p>
-    );
-  });
+  const monthsSelector = months.map((month) => (
+    <Dropdown.Item href="" key={month} onClick={selectMonthHandler}>
+      {month}
+    </Dropdown.Item>
+  ));
 
-  let contentMenu = (
-    <>
-      {dateObject.format("MMMM")}
-      {displayedMonths}
-      <ChevronDownIcon
-        className="ml-2 -mr-1 h-5 w-5"
-        onClick={selectMonthHandler}
-      />
-    </>
-  );
+  let currentMonth = moment().format("MMMM");
 
   return (
     <>
-      <div className="flex justify-between mt-12 py-2 bg-secondary w-[90%] mx-auto">
-        <ChevronLeftIcon className="h-5 text-primary mt-2 ml-2" />
-        {contentMenu}
-        <ChevronRightIcon className="h-5 text-primary mt-2 mr-2" />
+      <div className="header-container bg-primary">
+        <div className="mx-auto dropdown-months">
+          <Dropdown className="">
+            <Dropdown.Toggle variant="primary" id="dropdown-basic">
+              {currentMonth}
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>{monthsSelector}</Dropdown.Menu>
+          </Dropdown>
+        </div>
       </div>
     </>
   );
