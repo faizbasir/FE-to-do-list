@@ -2,14 +2,17 @@ import moment, { Moment } from "moment";
 import React, { useEffect, useState } from "react";
 import "./styles/CalendarContent.scss";
 
-const CalendarContent = () => {
+interface monthProp {
+  selectedMonth: number;
+}
+
+const CalendarContent = (props: monthProp) => {
   const [dateObject, setDateObject] = useState<Moment>(moment());
 
   useEffect(() => {
-    setDateObject(moment());
-  }, []);
+    setDateObject(moment().set("month", props.selectedMonth));
+  }, [props.selectedMonth]);
 
-  console.log(dateObject);
   const firstDayOfMonth = () => {
     let firstDay: number = Number(
       moment(dateObject).startOf("month").format("d")

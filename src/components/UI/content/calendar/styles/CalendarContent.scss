@@ -17,10 +17,16 @@ td {
 }
 .task {
   list-style: none;
-  font-size: small;
+  font-size: x-small;
   width: 90%;
   display: block;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 1440px) {
+  td {
+    height: 5rem;
+  }
 }

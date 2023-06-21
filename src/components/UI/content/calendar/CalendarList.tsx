@@ -1,10 +1,12 @@
 import moment from "moment";
-import React from "react";
+import React, { useState } from "react";
 import CalendarContent from "./CalendarContent";
 import CalendarHeader from "./CalendarHeader";
 import "./styles/CalendarList.scss";
 
 const CalendarList = () => {
+  const [month, setMonth] = useState<number>(moment().month());
+
   const daysInWeek = moment.weekdaysShort().map((day) => {
     return (
       <th key={day} className="border">
@@ -13,16 +15,21 @@ const CalendarList = () => {
     );
   });
 
+  const monthChange = (selectedMonth: number) => {
+    setMonth(selectedMonth);
+    console.log(selectedMonth);
+  };
+
   return (
     <>
-      <CalendarHeader />
+      <CalendarHeader onChange={monthChange} />
       <div className="calendar-container">
         <table className="table table-striped table-fixed">
           <thead>
             <tr key={"header"}>{daysInWeek}</tr>
           </thead>
           <tbody>
-            <CalendarContent />
+            <CalendarContent selectedMonth={month} />
           </tbody>
         </table>
       </div>
