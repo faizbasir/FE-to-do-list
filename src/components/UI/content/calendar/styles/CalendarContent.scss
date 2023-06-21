@@ -3,6 +3,24 @@
   width: fit-content;
   border-radius: 0.5rem;
 }
+.other-day {
+  width: fit-content;
+}
 td {
   height: 6rem;
+  overflow: hidden;
+  max-width: 4rem;
+}
+.task-list {
+  margin: 0px;
+  padding-left: 0;
+}
+.task {
+  list-style: none;
+  font-size: small;
+  width: 90%;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

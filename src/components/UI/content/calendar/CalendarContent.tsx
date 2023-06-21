@@ -40,11 +40,17 @@ const CalendarContent = () => {
             Number(dateObject.format("D")) === i &&
             moment().format("MMMM") === dateObject.format("MMMM")
               ? "current-day"
-              : ""
+              : "other-day"
           }`}
         >
           {i}
         </p>
+        {i === 1 && (
+          <ul className="task-list">
+            <li className="task">Pick up dry cleaning and others</li>
+            <li className="task">Pick up dry cleaning and others</li>
+          </ul>
+        )}
       </td>
     );
   }

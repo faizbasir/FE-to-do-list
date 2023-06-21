@@ -17,7 +17,7 @@ const CalendarList = () => {
     <>
       <CalendarHeader />
       <div className="calendar-container">
-        <table className="table table-striped">
+        <table className="table table-striped table-fixed">
           <thead>
             <tr key={"header"}>{daysInWeek}</tr>
           </thead>
