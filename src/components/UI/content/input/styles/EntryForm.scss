@@ -4,3 +4,7 @@
 .input-field {
   color: whitesmoke !important;
 }
+button:disabled {
+  background-color: gray !important;
+  cursor: not-allowed !important;
+}

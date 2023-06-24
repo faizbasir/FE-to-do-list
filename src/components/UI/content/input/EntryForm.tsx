@@ -54,7 +54,7 @@ const EntryForm = () => {
       <Form onSubmit={submitHandler}>
         <Row className="align-items-center">
           <Form.Group as={Col} md="6">
-            <Form.Label visuallyHidden>City</Form.Label>
+            <Form.Label visuallyHidden>Summary</Form.Label>
             <Form.Control
               className="input-field"
               type="text"
@@ -69,11 +69,11 @@ const EntryForm = () => {
               }
             />
             <Form.Control.Feedback type="invalid">
-              Please provide a valid city.
+              Please provide a valid summary.
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="5">
-            <Form.Label visuallyHidden>State</Form.Label>
+            <Form.Label visuallyHidden>Date</Form.Label>
             <Form.Control
               className="input-field"
               type="date"
@@ -85,11 +85,19 @@ const EntryForm = () => {
               required
             />
             <Form.Control.Feedback type="invalid">
-              Please provide a valid state.
+              Please provide a valid date.
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="1">
-            <Button type="submit" className="">
+            <Button
+              type="submit"
+              disabled={
+                inputState.date.isValid === true &&
+                inputState.summary.isValid === true
+                  ? false
+                  : true
+              }
+            >
               +
             </Button>
           </Form.Group>
