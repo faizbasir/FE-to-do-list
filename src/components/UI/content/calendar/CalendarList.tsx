@@ -20,13 +20,19 @@ const CalendarList = () => {
     console.log(selectedMonth);
   };
 
+  const monthShift = (shiftedMonth: number) => {
+    setMonth(shiftedMonth);
+  };
+
   return (
     <>
-      <CalendarHeader onChange={monthChange} />
+      <CalendarHeader onChange={monthChange} onShift={monthShift} />
       <div className="calendar-container">
         <table className="table table-striped table-fixed">
           <thead>
-            <tr key={"header"}>{daysInWeek}</tr>
+            <tr key={"header"} className="header-row">
+              {daysInWeek}
+            </tr>
           </thead>
           <tbody>
             <CalendarContent selectedMonth={month} />

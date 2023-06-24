@@ -2,11 +2,22 @@
   width: 80%;
   margin: auto;
   padding: 0.5rem 0;
+  display: flex;
+  justify-content: space-between;
 }
-.dropdown-months {
+.dropdown-button {
   width: fit-content;
 }
 .header {
   width: fit-content;
   margin: auto;
+}
+.chevron-icon {
+  width: 2rem;
+  height: 2rem;
+  color: whitesmoke;
+  cursor: pointer;
+}
+.dropdown-months {
+  background-color: #d3d3d3 !important;
 }

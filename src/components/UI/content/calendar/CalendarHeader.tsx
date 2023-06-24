@@ -2,9 +2,11 @@ import moment from "moment";
 import React, { useState } from "react";
 import "./styles/CalendarHeader.scss";
 import { Dropdown } from "react-bootstrap";
+import { ChevronRight, ChevronLeft } from "react-bootstrap-icons";
 
 interface monthProp {
   onChange: (monthIndex: number) => void;
+  onShift: (monthNumber: number) => void;
 }
 
 const CalendarHeader = (props: monthProp) => {
@@ -16,6 +18,20 @@ const CalendarHeader = (props: monthProp) => {
     props.onChange(months.indexOf(e.currentTarget.innerHTML));
   };
 
+  const previousMonthShiftHandler = () => {
+    if (month !== "January") {
+      setMonth(months[months.indexOf(month) - 1]);
+      props.onShift(months.indexOf(month) - 1);
+    }
+  };
+
+  const nextMonthShiftHandler = () => {
+    if (month !== "December") {
+      setMonth(months[months.indexOf(month) + 1]);
+      props.onShift(months.indexOf(month) + 1);
+    }
+  };
+
   const monthsSelector = months.map((month) => (
     <Dropdown.Item href="" key={month} onClick={selectMonthHandler}>
       {month}
@@ -25,15 +41,25 @@ const CalendarHeader = (props: monthProp) => {
   return (
     <>
       <div className="header-container bg-primary">
-        <div className="mx-auto dropdown-months">
+        <ChevronLeft
+          className="chevron-icon"
+          onClick={previousMonthShiftHandler}
+        />
+        <div className="mx-auto dropdown-button">
           <Dropdown className="">
             <Dropdown.Toggle variant="primary" id="dropdown-basic">
               {month}
             </Dropdown.Toggle>
 
-            <Dropdown.Menu>{monthsSelector}</Dropdown.Menu>
+            <Dropdown.Menu className="dropdown-months">
+              {monthsSelector}
+            </Dropdown.Menu>
           </Dropdown>
         </div>
+        <ChevronRight
+          className="chevron-icon"
+          onClick={nextMonthShiftHandler}
+        />
       </div>
     </>
   );

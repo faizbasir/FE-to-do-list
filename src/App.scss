@@ -8,11 +8,6 @@ $font-family-code: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
 $font-family-base: Helvetica;
 $paragraph-margin-bottom: 0;
 
-$table-color: whitesmoke;
-$table-bg-scale: -30%;
-$table-cell-padding-x-sm: 1rem;
-$table-bg: #212529;
-
 $navbar-padding-y: 1rem;
 $navbar-padding-x: 2rem;
 
@@ -26,7 +21,5 @@ $card-color: whitesmoke;
 $card-border-color: whitesmoke;
 
 $modal-content-color: whitesmoke;
-
-$dropdown-bg: #d3d3d3;
 
 @import "../node_modules/bootstrap/scss/bootstrap";
