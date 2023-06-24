@@ -3,6 +3,7 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import formReducer from "../../../reducer/formReducer";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { addTask } from "../../../store/todoSlice";
+import "./styles/EntryForm.scss";
 
 const EntryForm = () => {
   const appDispatch = useAppDispatch();
@@ -55,6 +56,7 @@ const EntryForm = () => {
           <Form.Group as={Col} md="6">
             <Form.Label visuallyHidden>City</Form.Label>
             <Form.Control
+              className="input-field"
               type="text"
               placeholder="Summary"
               id="summary"
@@ -73,6 +75,7 @@ const EntryForm = () => {
           <Form.Group as={Col} md="5">
             <Form.Label visuallyHidden>State</Form.Label>
             <Form.Control
+              className="input-field"
               type="date"
               id="date"
               value={inputState.date.value}

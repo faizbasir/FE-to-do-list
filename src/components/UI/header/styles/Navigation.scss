@@ -9,3 +9,9 @@ p,
   margin: 0.5rem;
   text-decoration: none;
 }
+.nav-pills {
+  .active {
+    background-color: whitesmoke !important;
+    color: blue !important;
+  }
+}
