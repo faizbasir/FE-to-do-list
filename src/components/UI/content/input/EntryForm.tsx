@@ -97,6 +97,12 @@ const EntryForm = () => {
                   ? false
                   : true
               }
+              variant={
+                inputState.date.isValid === true &&
+                inputState.summary.isValid === true
+                  ? "primary"
+                  : "secondary"
+              }
             >
               +
             </Button>
