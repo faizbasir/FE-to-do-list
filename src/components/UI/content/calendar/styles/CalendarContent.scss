@@ -12,7 +12,8 @@ td {
   max-width: 4rem;
 }
 .task-list {
-  margin: 0px;
+  margin-top: 0.3rem;
+  margin-bottom: 0;
   padding-left: 0;
 }
 .task {
@@ -24,6 +25,9 @@ td {
   white-space: nowrap;
   text-overflow: ellipsis;
   color: whitesmoke;
+  padding-left: 0.3rem;
+  border-radius: 0.4rem;
+  margin-top: 0.3rem;
 }
 
 @media screen and (max-width: 1440px) {

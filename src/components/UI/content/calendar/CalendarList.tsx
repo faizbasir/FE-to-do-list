@@ -17,7 +17,6 @@ const CalendarList = () => {
 
   const monthChange = (selectedMonth: number) => {
     setMonth(selectedMonth);
-    console.log(selectedMonth);
   };
 
   const monthShift = (shiftedMonth: number) => {

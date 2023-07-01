@@ -1,6 +1,7 @@
 import moment, { Moment } from "moment";
 import React, { useEffect, useState } from "react";
 import "./styles/CalendarContent.scss";
+import { useAppSelector } from "../../../store/store";
 
 interface monthProp {
   selectedMonth: number;
@@ -8,6 +9,7 @@ interface monthProp {
 
 const CalendarContent = (props: monthProp) => {
   const [dateObject, setDateObject] = useState<Moment>(moment());
+  const taskList = useAppSelector((state) => state.todo);
 
   useEffect(() => {
     setDateObject(moment().set("month", props.selectedMonth));
@@ -36,6 +38,24 @@ const CalendarContent = (props: monthProp) => {
 
   let filledSpaces: JSX.Element[] = [];
   for (let i = 1; i <= daysInMonth(); i++) {
+    let content = taskList.map(
+      (task) =>
+        Number(task.dueDate.split("-")[1]) === props.selectedMonth + 1 &&
+        Number(task.dueDate.split("-")[2]) === i && (
+          <li
+            key={task.id}
+            className={`task ${
+              task.completed
+                ? "success"
+                : moment().format("YYYY-MM-DD") > task.dueDate
+                ? "danger"
+                : ""
+            }`}
+          >
+            {task.summary}
+          </li>
+        )
+    );
     filledSpaces.push(
       <td className="border" key={i}>
         <p
@@ -48,12 +68,7 @@ const CalendarContent = (props: monthProp) => {
         >
           {i}
         </p>
-        {i === 1 && (
-          <ul className="task-list">
-            <li className="task">Pick up dry cleaning and others</li>
-            <li className="task">Pick up dry cleaning and others</li>
-          </ul>
-        )}
+        {<ul className="task-list">{content}</ul>}
       </td>
     );
   }
