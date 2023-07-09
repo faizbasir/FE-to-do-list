@@ -7,7 +7,7 @@ interface Task {
   completed: boolean;
 }
 
-const initialState = [
+export const initialState = [
   {
     id: 1,
     summary: "Clear garbage",
@@ -105,7 +105,7 @@ const changeExisitingTaskStatus = (
   return state;
 };
 
-const todoSlice = createSlice({
+export const todoSlice = createSlice({
   name: "todo",
   initialState,
   reducers: {
