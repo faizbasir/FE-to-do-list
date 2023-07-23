@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import React, { PropsWithChildren } from "react";
-import { store } from "../../components/store/store";
 import { Provider } from "react-redux";
+import { store } from "../../components/store/store";
 
 function wrappedRender(ui: React.ReactElement) {
   function Wrapper({ children }: PropsWithChildren<{}>): JSX.Element {
