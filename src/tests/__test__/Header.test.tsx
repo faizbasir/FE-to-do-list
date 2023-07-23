@@ -1,7 +1,7 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
-import Header from "../components/UI/header/Header";
-import Navigation from "../components/UI/header/Navigation";
+import Header from "../../components/UI/header/Header";
+import Navigation from "../../components/UI/header/Navigation";
 import { BrowserRouter } from "react-router-dom";
 
 const convertHexToRGBA = (hexCode: string) => {

@@ -70,7 +70,7 @@ const TaskItem = (props: Props) => {
   if (onEdit) {
     return (
       <>
-        <div className="card d-flex flex-row">
+        <div className="card d-flex flex-row" role="card">
           <div className="card-body id-column">{props.id}</div>
           <div className="card-body">
             <input
@@ -137,6 +137,7 @@ const TaskItem = (props: Props) => {
             ? "danger"
             : ""
         }`}
+        role="card"
       >
         <div className="card-body id-column">{props.id}</div>
         <div className="card-body">{props.summary}</div>
