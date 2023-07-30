@@ -7,7 +7,7 @@ import "./styles/EntryForm.scss";
 
 const EntryForm = () => {
   const appDispatch = useAppDispatch();
-  const taskList = useAppSelector((state) => state.todo);
+  const taskList = useAppSelector((state) => state.todo.tasks);
   const [inputState, dispatch] = useReducer(formReducer, {
     summary: { value: "", isValid: false, isTouched: false },
     date: { value: "", isValid: false, isTouched: false },

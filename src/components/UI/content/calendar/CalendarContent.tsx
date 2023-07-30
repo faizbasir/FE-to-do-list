@@ -9,7 +9,7 @@ interface monthProp {
 
 const CalendarContent = (props: monthProp) => {
   const [dateObject, setDateObject] = useState<Moment>(moment());
-  const taskList = useAppSelector((state) => state.todo);
+  const taskList = useAppSelector((state) => state.todo.tasks);
 
   useEffect(() => {
     setDateObject(moment().set("month", props.selectedMonth));

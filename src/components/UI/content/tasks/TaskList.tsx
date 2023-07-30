@@ -5,7 +5,7 @@ import "./styles/TaskList.scss";
 import EntryForm from "../input/EntryForm";
 
 const TaskList = () => {
-  const taskList = useAppSelector((state) => state.todo);
+  const taskList = useAppSelector((state) => state.todo.tasks);
 
   const content = taskList.map((item) => (
     <TaskItem

@@ -1,4 +1,10 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import {
+  PayloadAction,
+  SerializedError,
+  createAsyncThunk,
+  createSlice,
+} from "@reduxjs/toolkit";
+import axios from "axios";
 
 interface Task {
   summary: string;
@@ -7,7 +13,17 @@ interface Task {
   completed: boolean;
 }
 
-export const initialState: Task[] = [];
+interface State {
+  tasks: Task[];
+  loading: boolean;
+  error: null | SerializedError;
+}
+
+export const initialState: State = {
+  tasks: [],
+  loading: false,
+  error: null,
+};
 
 // export const initialState = [
 //   {
@@ -75,35 +91,64 @@ export const initialState: Task[] = [];
 //   },
 // ];
 
-const createNewTask = (state: Task[], action: PayloadAction<Task>) => {
-  state.push({
+export const fetchTasks = createAsyncThunk(
+  "fetchUsers",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get("http://localhost:4000/api/tasks");
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message as SerializedError);
+    }
+  }
+);
+
+const createNewTask = (
+  state: State,
+  action: PayloadAction<{
+    summary: string;
+    dueDate: string;
+    id: number;
+    completed: boolean;
+  }>
+) => {
+  const task = {
     id: action.payload.id,
     dueDate: action.payload.dueDate,
     summary: action.payload.summary,
     completed: action.payload.completed,
-  });
+  };
+  let taskList = state.tasks;
+  taskList.push(task);
+  return { ...state, tasks: taskList };
 };
 
-const deleteExistingTask = (state: Task[], action: PayloadAction<number>) => {
-  return state.filter((task) => task.id !== action.payload);
+const deleteExistingTask = (state: State, action: PayloadAction<number>) => {
+  let taskList = state.tasks;
+  taskList.filter((task) => task.id != action.payload);
+  return { ...state, tasks: taskList };
 };
 
 const editExisitngTask = (
-  state: Task[],
+  state: State,
   action: PayloadAction<{ summary: string; dueDate: string; id: number }>
 ) => {
-  const elementIndex = state.findIndex((task) => task.id === action.payload.id);
-  state[elementIndex].summary = action.payload.summary;
-  state[elementIndex].dueDate = action.payload.dueDate;
+  const elementIndex = state.tasks.findIndex(
+    (task) => task.id === action.payload.id
+  );
+  state.tasks[elementIndex].summary = action.payload.summary;
+  state.tasks[elementIndex].dueDate = action.payload.dueDate;
   return state;
 };
 
 const changeExisitingTaskStatus = (
-  state: Task[],
+  state: State,
   action: PayloadAction<number>
 ) => {
-  const elementIndex = state.findIndex((task) => task.id === action.payload);
-  state[elementIndex].completed = !state[elementIndex].completed;
+  const elementIndex = state.tasks.findIndex(
+    (task) => task.id === action.payload
+  );
+  state.tasks[elementIndex].completed = !state.tasks[elementIndex].completed;
   return state;
 };
 
@@ -115,6 +160,21 @@ export const todoSlice = createSlice({
     deleteTask: deleteExistingTask,
     editTask: editExisitngTask,
     changeTaskStatus: changeExisitingTaskStatus,
+  },
+  extraReducers(builder) {
+    builder.addCase(fetchTasks.fulfilled, (state, action) => {
+      return { ...state, loading: false, tasks: action.payload };
+    });
+    builder.addCase(fetchTasks.pending, (state, _action) => {
+      return { ...state, loading: true };
+    });
+    builder.addCase(fetchTasks.rejected, (state, action) => {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload as SerializedError,
+      };
+    });
   },
 });
 
