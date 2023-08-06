@@ -19,6 +19,13 @@ interface State {
   error: null | SerializedError;
 }
 
+interface Data {
+  summary: string;
+  id: number;
+  completed: boolean;
+  dueDate: string;
+}
+
 export const initialState: State = {
   tasks: [],
   loading: false,
@@ -92,7 +99,7 @@ export const initialState: State = {
 // ];
 
 export const fetchTasks = createAsyncThunk(
-  "fetchUsers",
+  "fetchTask",
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get("http://localhost:4000/api/tasks");
@@ -104,25 +111,31 @@ export const fetchTasks = createAsyncThunk(
   }
 );
 
-const createNewTask = (
-  state: State,
-  action: PayloadAction<{
-    summary: string;
-    dueDate: string;
-    id: number;
-    completed: boolean;
-  }>
-) => {
-  const task = {
-    id: action.payload.id,
-    dueDate: action.payload.dueDate,
-    summary: action.payload.summary,
-    completed: action.payload.completed,
-  };
-  let taskList = state.tasks;
-  taskList.push(task);
-  return { ...state, tasks: taskList };
-};
+export const addNewTask = createAsyncThunk(
+  "addTask",
+  async (data: Data, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/newTask",
+        {
+          summary: data.summary,
+          id: data.id,
+          completed: data.completed,
+          dueDate: data.dueDate,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message as SerializedError);
+    }
+  }
+);
 
 const deleteExistingTask = (state: State, action: PayloadAction<number>) => {
   let taskList = state.tasks;
@@ -157,7 +170,6 @@ export const todoSlice = createSlice({
   name: "todo",
   initialState,
   reducers: {
-    addTask: createNewTask,
     deleteTask: deleteExistingTask,
     editTask: editExisitngTask,
     changeTaskStatus: changeExisitingTaskStatus,
@@ -176,9 +188,23 @@ export const todoSlice = createSlice({
         error: action.payload as SerializedError,
       };
     });
+    builder.addCase(addNewTask.fulfilled, (state: State, action) => {
+      state.tasks.push(action.payload.task);
+      state.loading = false;
+      return state;
+    });
+    builder.addCase(addNewTask.pending, (state, action) => {
+      return { ...state, loading: true };
+    });
+    builder.addCase(addNewTask.rejected, (state, action) => {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload as SerializedError,
+      };
+    });
   },
 });
 
-export const { addTask, deleteTask, editTask, changeTaskStatus } =
-  todoSlice.actions;
+export const { deleteTask, editTask, changeTaskStatus } = todoSlice.actions;
 export default todoSlice.reducer;

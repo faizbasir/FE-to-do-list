@@ -2,7 +2,7 @@ import React, { useReducer } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import formReducer from "../../../reducer/formReducer";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
-import { addTask } from "../../../store/todoSlice";
+import { addNewTask } from "../../../store/todoSlice";
 import "./styles/EntryForm.scss";
 
 const EntryForm = () => {
@@ -18,14 +18,15 @@ const EntryForm = () => {
   const submitHandler = (e: React.SyntheticEvent) => {
     console.log(inputState);
     e.preventDefault();
-    appDispatch(
-      addTask({
+    const response = appDispatch(
+      addNewTask({
         summary: inputState.summary.value,
         id: Math.max(...maxId) + 1,
         dueDate: inputState.date.value,
         completed: false,
       })
     );
+    console.log(response);
     dispatch({
       type: "CLEAR_FIELDS",
       payload: {
