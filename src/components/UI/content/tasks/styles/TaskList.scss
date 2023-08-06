@@ -10,11 +10,7 @@ thead {
 .header-text {
   color: whitesmoke;
 }
-.form {
-  width: 35%;
-  margin: auto;
-  margin-bottom: 3rem;
-}
+
 .card {
   width: 80%;
   margin: auto;
@@ -28,4 +24,12 @@ thead {
 }
 .submit-form {
   width: fit-content;
+}
+@media screen and (max-width: 1220px) {
+  .card-body {
+    max-width: 23%;
+  }
+  .id-column {
+    max-width: 8%;
+  }
 }

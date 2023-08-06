@@ -53,7 +53,7 @@ const EntryForm = () => {
     <>
       <Form onSubmit={submitHandler}>
         <Row className="align-items-center">
-          <Form.Group as={Col} md="6">
+          <Form.Group as={Col} md="8">
             <Form.Label visuallyHidden>Summary</Form.Label>
             <Form.Control
               className="input-field"
@@ -72,7 +72,7 @@ const EntryForm = () => {
               Please provide a valid summary.
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group as={Col} md="5">
+          <Form.Group as={Col} md="3">
             <Form.Label visuallyHidden>Date</Form.Label>
             <Form.Control
               className="input-field"

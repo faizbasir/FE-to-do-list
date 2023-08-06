@@ -7,3 +7,14 @@
 button:disabled {
   cursor: not-allowed !important;
 }
+.form {
+  width: 50%;
+  margin: auto;
+  margin-bottom: 3rem;
+}
+
+@media screen and (max-width: 1215px) {
+  .form {
+    width: 60%;
+  }
+}
