@@ -11,6 +11,12 @@ export const handlers: RestHandler<MockedRequest<DefaultBodyType>>[] = [
           completed: false,
           dueDate: "2023-12-30",
         },
+        {
+          id: 3,
+          summary: "Submit timesheet",
+          completed: false,
+          dueDate: "2023-05-30",
+        },
       ])
     );
   }),
