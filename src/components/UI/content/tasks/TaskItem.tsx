@@ -138,6 +138,7 @@ const TaskItem = (props: Props) => {
             : ""
         }`}
         role="card"
+        title={`${props.id}`}
       >
         <div className="card-body id-column">{props.id}</div>
         <div className="card-body">{props.summary}</div>

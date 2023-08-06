@@ -1,11 +1,17 @@
-import React from "react";
-import { useAppSelector } from "../../../store/store";
+import React, { useEffect } from "react";
+import { useAppSelector, useAppDispatch } from "../../../store/store";
 import TaskItem from "./TaskItem";
 import "./styles/TaskList.scss";
 import EntryForm from "../input/EntryForm";
+import { fetchTasks } from "../../../store/todoSlice";
 
 const TaskList = () => {
   const taskList = useAppSelector((state) => state.todo.tasks);
+  const appDispatch = useAppDispatch();
+
+  useEffect(() => {
+    appDispatch(fetchTasks());
+  }, []);
 
   const content = taskList.map((item) => (
     <TaskItem

@@ -5,15 +5,8 @@ import TaskList from "./components/UI/content/tasks/TaskList";
 import CalendarList from "./components/UI/content/calendar/CalendarList";
 import "./App.scss";
 import { useAppDispatch } from "./components/store/store";
-import { fetchTasks } from "./components/store/todoSlice";
 
 const App = () => {
-  const appDispatch = useAppDispatch();
-
-  useEffect(() => {
-    appDispatch(fetchTasks());
-  }, []);
-
   const routes = (
     <Routes>
       <Route path="/" element={<TaskList />} />

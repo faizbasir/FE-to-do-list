@@ -96,6 +96,7 @@ export const fetchTasks = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get("http://localhost:4000/api/tasks");
+      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message as SerializedError);
