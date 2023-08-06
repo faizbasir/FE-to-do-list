@@ -1,28 +1,43 @@
 import moment from "moment";
-import React from "react";
+import React, { useState } from "react";
 import CalendarContent from "./CalendarContent";
 import CalendarHeader from "./CalendarHeader";
+import "./styles/CalendarList.scss";
 
 const CalendarList = () => {
+  const [month, setMonth] = useState<number>(moment().month());
+
   const daysInWeek = moment.weekdaysShort().map((day) => {
     return (
-      <th key={day} className="text-secondary border">
+      <th key={day} className="border">
         {day}
       </th>
     );
   });
 
+  const monthChange = (selectedMonth: number) => {
+    setMonth(selectedMonth);
+  };
+
+  const monthShift = (shiftedMonth: number) => {
+    setMonth(shiftedMonth);
+  };
+
   return (
     <>
-      <CalendarHeader />
-      <table className={`table-fixed w-[90%] mx-auto`}>
-        <thead>
-          <tr key={"header"}>{daysInWeek}</tr>
-        </thead>
-        <tbody>
-          <CalendarContent />
-        </tbody>
-      </table>
+      <CalendarHeader onChange={monthChange} onShift={monthShift} />
+      <div className="calendar-container">
+        <table className="table table-striped table-fixed">
+          <thead>
+            <tr key={"header"} className="header-row">
+              {daysInWeek}
+            </tr>
+          </thead>
+          <tbody>
+            <CalendarContent selectedMonth={month} />
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };

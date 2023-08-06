@@ -1,12 +1,19 @@
 import moment, { Moment } from "moment";
 import React, { useEffect, useState } from "react";
+import "./styles/CalendarContent.scss";
+import { useAppSelector } from "../../../store/store";
 
-const CalendarContent = () => {
+interface monthProp {
+  selectedMonth: number;
+}
+
+const CalendarContent = (props: monthProp) => {
   const [dateObject, setDateObject] = useState<Moment>(moment());
+  const taskList = useAppSelector((state) => state.todo.tasks);
 
   useEffect(() => {
-    setDateObject(moment());
-  }, []);
+    setDateObject(moment().set("month", props.selectedMonth));
+  }, [props.selectedMonth]);
 
   const firstDayOfMonth = () => {
     let firstDay: number = Number(
@@ -23,7 +30,7 @@ const CalendarContent = () => {
   let blankSpaces: JSX.Element[] = [];
   for (let i = 0; i < firstDayOfMonth(); i++) {
     blankSpaces.push(
-      <td className="border bg-lightgray h-24" key={`empty-${i}`}>
+      <td className="border" key={`empty-${i}`}>
         {""}
       </td>
     );
@@ -31,18 +38,37 @@ const CalendarContent = () => {
 
   let filledSpaces: JSX.Element[] = [];
   for (let i = 1; i <= daysInMonth(); i++) {
+    let content = taskList.map(
+      (task) =>
+        Number(task.dueDate.split("-")[1]) === props.selectedMonth + 1 &&
+        Number(task.dueDate.split("-")[2]) === i && (
+          <li
+            key={task.id}
+            className={`task ${
+              task.completed
+                ? "success"
+                : moment().format("YYYY-MM-DD") > task.dueDate
+                ? "danger"
+                : ""
+            }`}
+          >
+            {task.summary}
+          </li>
+        )
+    );
     filledSpaces.push(
-      <td className="border h-24 align-top px-2" key={i}>
+      <td className="border" key={i}>
         <p
-          className={`text-sm w-fit px-2  ${
+          className={`px-2  ${
             Number(dateObject.format("D")) === i &&
             moment().format("MMMM") === dateObject.format("MMMM")
-              ? "bg-secondary text-primary rounded-full"
-              : ""
+              ? "current-day"
+              : "other-day"
           }`}
         >
           {i}
         </p>
+        {<ul className="task-list">{content}</ul>}
       </td>
     );
   }
@@ -53,7 +79,7 @@ const CalendarContent = () => {
   while (totalSlots.length % 7 !== 0) {
     blankCount++;
     totalSlots.push(
-      <td className="border bg-lightgray h-24" key={`empty-1-${blankCount}`}>
+      <td className="border" key={`empty-1-${blankCount}`}>
         {""}
       </td>
     );

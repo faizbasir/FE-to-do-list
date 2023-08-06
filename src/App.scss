@@ -1,0 +1,16 @@
+body {
+  margin: 0px;
+}
+
+$body-bg: #212529;
+$font-family-code: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  monospace;
+$font-family-base: Helvetica;
+$paragraph-margin-bottom: 0;
+
+$card-color: whitesmoke;
+$card-border-color: whitesmoke;
+
+$modal-content-color: whitesmoke;
+
+@import "../node_modules/bootstrap/scss/bootstrap";

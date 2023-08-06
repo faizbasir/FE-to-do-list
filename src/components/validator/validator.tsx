@@ -8,7 +8,7 @@ export const validatorInput = (payload: { id: string; value: string }) => {
       return false;
     case "date":
       let regEx = /^\d{4}-\d{2}-\d{2}$/;
-      return value.match(regEx);
+      return regEx.test(value);
     default:
       return false;
   }

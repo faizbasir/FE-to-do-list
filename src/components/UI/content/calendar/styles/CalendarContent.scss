@@ -1,0 +1,37 @@
+.current-day {
+  background-color: gray;
+  width: fit-content;
+  border-radius: 0.5rem;
+}
+.other-day {
+  width: fit-content;
+}
+td {
+  height: 6rem;
+  overflow: hidden;
+  max-width: 4rem;
+}
+.task-list {
+  margin-top: 0.3rem;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+.task {
+  list-style: none;
+  font-size: x-small;
+  width: 90%;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: whitesmoke;
+  padding-left: 0.3rem;
+  border-radius: 0.4rem;
+  margin-top: 0.3rem;
+}
+
+@media screen and (max-width: 1440px) {
+  td {
+    height: 5rem;
+  }
+}

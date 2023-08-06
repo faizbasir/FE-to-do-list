@@ -29,8 +29,16 @@ const formReducer: Reducer<inputState, inputAction> = (
       });
     case "CLEAR_FIELDS":
       return (state = {
-        summary: { value: "", isValid: false, isTouched: false },
-        date: { value: "", isValid: false, isTouched: false },
+        summary: {
+          value: "",
+          isValid: false,
+          isTouched: false,
+        },
+        date: {
+          value: "",
+          isValid: false,
+          isTouched: false,
+        },
       });
     case "ON_TOUCH":
       return (state = {

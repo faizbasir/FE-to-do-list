@@ -1,0 +1,9 @@
+.input-field::placeholder {
+  color: gray !important;
+}
+.input-field {
+  color: whitesmoke !important;
+}
+button:disabled {
+  cursor: not-allowed !important;
+}

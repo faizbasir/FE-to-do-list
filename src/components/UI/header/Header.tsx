@@ -1,13 +1,14 @@
 import React from "react";
+import "./styles/Header.scss";
 import Navigation from "./Navigation";
 
 const Header = () => {
   return (
     <>
-      <div className="flex justify-between bg-secondary px-8 py-4">
-        <h1 className="text-primary text-xl">To Do List Sandbox</h1>
+      <nav className="navbar bg-primary" data-bs-theme="dark">
+        <h3>To Do List Sandbox</h3>
         <Navigation />
-      </div>
+      </nav>
     </>
   );
 };

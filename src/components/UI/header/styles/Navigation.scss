@@ -1,0 +1,17 @@
+.navigation {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0.5rem;
+}
+p,
+.text {
+  color: whitesmoke;
+  margin: 0.5rem;
+  text-decoration: none;
+}
+.nav-pills {
+  .active {
+    background-color: whitesmoke !important;
+    color: blue !important;
+  }
+}
