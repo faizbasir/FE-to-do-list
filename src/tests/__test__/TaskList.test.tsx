@@ -18,26 +18,51 @@ test("render initial task list", async () => {
   expect(taskList).toHaveLength(3);
 });
 
+// Completed task should be checked
 test("check that completed task is checked", async () => {
   render(<TaskList />);
 
   const task = await screen.findByRole("card", { name: "1" });
+
+  // Check that task os showing completed status
   expect(within(task).getByText(/completed/i)).toBeInTheDocument();
+
+  // Checkbox should be checked if completed
   expect(within(task).getByRole("checkbox")).toBeChecked();
 });
 
-test("check that pending task is unchecked", async () => {
+// pending task should be unchecked and date is not later than current date
+test("check details of pending task", async () => {
   render(<TaskList />);
 
   const task = await screen.findByRole("card", { name: "2" });
+
+  // Check due date of pending task
+  expect(Date.parse(within(task).getByText(/2023/i).innerHTML)).toBeGreaterThan(
+    Date.now()
+  );
+
+  // Pending task should be unchecked
   expect(within(task).getByRole("checkbox")).not.toBeChecked();
+
+  // Check that task is having pending status
   expect(within(task).getByText(/pending/i)).toBeInTheDocument();
 });
 
+// Check details of overdue task
 test("check that overdue task is not checked", async () => {
   render(<TaskList />);
 
   const task = await screen.findByRole("card", { name: "3" });
+
+  // Task should have overdue date lesser than current date
+  expect(Date.parse(within(task).getByText(/2023/i).innerHTML)).toBeLessThan(
+    Date.now()
+  );
+
+  // Check that task is showing overdue status
   expect(within(task).getByText(/overdue/i)).toBeInTheDocument();
+
+  // Checkbox should not be checked
   expect(within(task).getByRole("checkbox")).not.toBeChecked();
 });
