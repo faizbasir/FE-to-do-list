@@ -49,8 +49,8 @@ test("check details of pending task", async () => {
   expect(within(task).getByText(/pending/i)).toBeInTheDocument();
 });
 
-// Check details of overdue task
-test("check that overdue task is not checked", async () => {
+// Overdue task should be unchecked and reflect status as overdue
+test("Check details of overdue task", async () => {
   render(<TaskList />);
 
   const task = await screen.findByRole("card", { name: "3" });
