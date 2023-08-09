@@ -103,7 +103,6 @@ export const fetchTasks = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get("http://localhost:4000/api/tasks");
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message as SerializedError);
@@ -116,7 +115,7 @@ export const addNewTask = createAsyncThunk(
   async (data: Data, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/newTask",
+        "http://localhost:4000/api/newTasks",
         {
           summary: data.summary,
           id: data.id,
