@@ -21,6 +21,7 @@ const ViewModal = (props: Props) => {
   const dispatch = useAppDispatch();
   const deleteHandler = () => {
     dispatch(deleteTask(props.id));
+    props.onCancel;
   };
 
   return (

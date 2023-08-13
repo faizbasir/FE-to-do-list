@@ -136,11 +136,24 @@ export const addNewTask = createAsyncThunk(
   }
 );
 
-const deleteExistingTask = (state: State, action: PayloadAction<number>) => {
-  let taskList = state.tasks;
-  taskList.filter((task) => task.id != action.payload);
-  return { ...state, tasks: taskList };
-};
+export const deleteTask = createAsyncThunk(
+  "deleteTask",
+  async (id: Number, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:4000/api/delete/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message as SerializedError);
+    }
+  }
+);
 
 const editExisitngTask = (
   state: State,
@@ -169,7 +182,6 @@ export const todoSlice = createSlice({
   name: "todo",
   initialState,
   reducers: {
-    deleteTask: deleteExistingTask,
     editTask: editExisitngTask,
     changeTaskStatus: changeExisitingTaskStatus,
   },
@@ -202,8 +214,23 @@ export const todoSlice = createSlice({
         error: action.payload as SerializedError,
       };
     });
+    builder.addCase(deleteTask.fulfilled, (state, action) => {
+      console.log(typeof action.payload.id);
+      let newState = state.tasks.filter((task) => task.id != action.payload.id);
+      return { ...state, loading: false, tasks: newState };
+    });
+    builder.addCase(deleteTask.pending, (state, action) => {
+      return { ...state, laoding: false };
+    });
+    builder.addCase(deleteTask.rejected, (state, action) => {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload as SerializedError,
+      };
+    });
   },
 });
 
-export const { deleteTask, editTask, changeTaskStatus } = todoSlice.actions;
+export const { editTask, changeTaskStatus } = todoSlice.actions;
 export default todoSlice.reducer;
