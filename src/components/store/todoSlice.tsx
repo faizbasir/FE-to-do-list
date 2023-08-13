@@ -155,6 +155,21 @@ export const deleteTask = createAsyncThunk(
   }
 );
 
+export const changeTaskStatus = createAsyncThunk(
+  "changeTaskStatus",
+  async (id: number, { rejectWithValue }) => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:4000/api/taskStatus/${id}`,
+        { headers: { "Content-Type": "application/json" } }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message as SerializedError);
+    }
+  }
+);
+
 const editExisitngTask = (
   state: State,
   action: PayloadAction<{ summary: string; dueDate: string; id: number }>
@@ -167,23 +182,11 @@ const editExisitngTask = (
   return state;
 };
 
-const changeExisitingTaskStatus = (
-  state: State,
-  action: PayloadAction<number>
-) => {
-  const elementIndex = state.tasks.findIndex(
-    (task) => task.id === action.payload
-  );
-  state.tasks[elementIndex].completed = !state.tasks[elementIndex].completed;
-  return state;
-};
-
 export const todoSlice = createSlice({
   name: "todo",
   initialState,
   reducers: {
     editTask: editExisitngTask,
-    changeTaskStatus: changeExisitingTaskStatus,
   },
   extraReducers(builder) {
     builder.addCase(fetchTasks.fulfilled, (state, action) => {
@@ -229,8 +232,26 @@ export const todoSlice = createSlice({
         error: action.payload as SerializedError,
       };
     });
+    builder.addCase(changeTaskStatus.fulfilled, (state, action) => {
+      const index = state.tasks.findIndex(
+        (task) => task.id === action.payload.id
+      );
+      state.tasks[index].completed = !state.tasks[index].completed;
+      state.loading = false;
+      return state;
+    });
+    builder.addCase(changeTaskStatus.pending, (state, action) => {
+      return { ...state, loading: true };
+    });
+    builder.addCase(changeTaskStatus.rejected, (state, action) => {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload as SerializedError,
+      };
+    });
   },
 });
 
-export const { editTask, changeTaskStatus } = todoSlice.actions;
+export const { editTask } = todoSlice.actions;
 export default todoSlice.reducer;

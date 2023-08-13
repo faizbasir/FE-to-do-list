@@ -1,7 +1,8 @@
 import React, { useReducer, useState } from "react";
 import ViewModal from "../../modal/Modal";
 import { useAppDispatch } from "../../../store/store";
-import { changeTaskStatus, editTask } from "../../../store/todoSlice";
+import { editTask } from "../../../store/todoSlice";
+import { changeTaskStatus } from "../../../store/todoSlice";
 import "./styles/TaskItem.scss";
 import { Eye, Pencil, Trash } from "react-bootstrap-icons";
 import moment from "moment";
