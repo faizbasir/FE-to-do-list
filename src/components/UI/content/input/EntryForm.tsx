@@ -55,7 +55,9 @@ const EntryForm = () => {
       <Form onSubmit={submitHandler}>
         <Row className="align-items-center">
           <Form.Group as={Col} md="8">
-            <Form.Label visuallyHidden>Summary</Form.Label>
+            <Form.Label visuallyHidden htmlFor="summary">
+              Summary
+            </Form.Label>
             <Form.Control
               className="input-field"
               type="text"
@@ -71,7 +73,9 @@ const EntryForm = () => {
             />
           </Form.Group>
           <Form.Group as={Col} md="3">
-            <Form.Label visuallyHidden>Date</Form.Label>
+            <Form.Label visuallyHidden htmlFor="date">
+              Date
+            </Form.Label>
             <Form.Control
               className="input-field"
               type="date"
