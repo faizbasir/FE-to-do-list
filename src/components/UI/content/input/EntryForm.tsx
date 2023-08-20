@@ -69,9 +69,6 @@ const EntryForm = () => {
                 inputState.summary.isTouched && !inputState.summary.isValid
               }
             />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid summary.
-            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="3">
             <Form.Label visuallyHidden>Date</Form.Label>
@@ -85,9 +82,6 @@ const EntryForm = () => {
               isInvalid={!inputState.date.isValid && inputState.date.isTouched}
               required
             />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid date.
-            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="1">
             <Button
@@ -110,6 +104,14 @@ const EntryForm = () => {
           </Form.Group>
         </Row>
       </Form>
+      <div className="error">
+        {inputState.summary.isTouched && !inputState.summary.isValid && (
+          <p className="summary-error">Please enter a valid summary</p>
+        )}
+        {!inputState.date.isValid && inputState.date.isTouched && (
+          <p className="date-error">Please enter a valid date</p>
+        )}
+      </div>
     </>
   );
 };

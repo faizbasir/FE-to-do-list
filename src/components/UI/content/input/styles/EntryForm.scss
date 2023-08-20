@@ -12,6 +12,21 @@ button:disabled {
   margin: auto;
   margin-bottom: 3rem;
 }
+.error {
+  display: flex;
+  justify-content: space-between;
+  p {
+    color: red;
+  }
+}
+.summary-error {
+  width: 70%;
+}
+.date-error {
+  position: fixed;
+  right: 12rem;
+  width: 30%;
+}
 
 @media screen and (max-width: 1215px) {
   .form {
