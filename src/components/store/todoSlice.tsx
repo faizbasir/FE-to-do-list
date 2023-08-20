@@ -115,7 +115,7 @@ export const addNewTask = createAsyncThunk(
   async (data: Data, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/newTasks",
+        "http://localhost:4000/api/newTask",
         {
           summary: data.summary,
           id: data.id,

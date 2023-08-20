@@ -13,7 +13,7 @@ test("render overview", () => {
 test("render initial task list", async () => {
   render(<TaskList />);
 
-  // number of tasks rendered should be 2
+  // number of tasks rendered should be 3
   const taskList = await screen.findAllByRole("card");
   expect(taskList).toHaveLength(3);
 });

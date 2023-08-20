@@ -20,4 +20,14 @@ export const handlers: RestHandler<MockedRequest<DefaultBodyType>>[] = [
       ])
     );
   }),
+  rest.post("http://localhost:4000/api/newTask", (req, res, ctx) => {
+    console.log(req);
+    return res(
+      ctx.json({
+        message: "Request successful",
+        status: 200,
+        task: req.body,
+      })
+    );
+  }),
 ];
