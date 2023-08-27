@@ -25,8 +25,13 @@ const Grid = () => {
   const [columnDefs, setColumnDefs] = useState<ColDef[]>([
     { field: "id" },
     { field: "summary" },
-    { field: "completed" },
     { field: "dueDate" },
+    { field: "status" },
+    {
+      field: "actions",
+      cellRenderer: "agCheckboxCellRenderer",
+      cellRendererParams: { disabled: false },
+    },
   ]);
 
   useEffect(() => {
@@ -39,7 +44,7 @@ const Grid = () => {
 
   return (
     <>
-      <div className="ag-theme-alpine">
+      <div className="ag-theme-alpine-dark">
         <AgGridReact columnDefs={columnDefs} rowData={rowData} />
       </div>
     </>
