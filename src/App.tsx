@@ -10,9 +10,9 @@ const App = () => {
   const routes = (
     <Routes>
       <Route path="/" element={<TaskList />} />
-      {/* <Route path="/overview" element={<TaskList />} /> */}
+      <Route path="/overview" element={<TaskList />} />
       <Route path="/calendar" element={<CalendarList />} />
-      <Route path="/overview" element={<Grid />} />
+      {/* <Route path="/overview" element={<Grid />} /> */}
     </Routes>
   );
 
